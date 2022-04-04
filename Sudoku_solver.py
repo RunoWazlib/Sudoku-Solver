@@ -1,6 +1,3 @@
-#Sudoku is a game with a 9x9 square consisting of 3x3 squares
-#assumptions are made on the unfilled squares
-
 test_puzzle = [
     'n', '5', '9', 'n', '6', 'n', '4', '8', 'n',
     'n', '8', '2', '9', 'n', '4', '7', '5', 'n',
