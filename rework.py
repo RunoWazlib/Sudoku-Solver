@@ -13,23 +13,32 @@ test_puzzle = [
 test_puzzle_2 = 'n59n6n48nn829n475nnnnnnnnnnn465n739nnnnnnnnnnn713n924nnnnnnnnnnn246n317nn13n2n9n6n'
 
 class Solver():
-    def __init__(self):
+    def __init__(self, puzzle_to_solve):
         self.rows = []
         self.columns = []
         self.grids = []
 
+        loop = 0
+        location = 0 #within the puzzle
         while True:
-            loop = 0
-            location = 0 #within the puzzle
+            new_entries = []
+            row_name = "R{}:".format(loop)
+
             if loop >= 9:
                 break
             for i in range(9):
                 i += location
-                self.rows.append()
+                new_entries.append(puzzle_to_solve[i])
+            
+            for e in range(1, 9):
+                if e == 0:
+                    break
+                else:
+                    new_entries[0] = new_entries[0] + new_entries[e]
+            self.rows.append(row_name + new_entries[0])
             location += 9 #move up the next 9 numbers
-
             loop += 1
         
 
-test_puzzle = Solver()
-print (test_puzzle.rows)
+init = Solver(test_puzzle)
+print (init.rows)
