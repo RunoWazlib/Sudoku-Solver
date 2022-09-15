@@ -23,7 +23,7 @@ class Solver():
         location = 0 #within the puzzle
         while (loop < 9):
             new_entries = []
-            row_name = "R{}:".format(loop)
+            row_name = "R{}".format(loop)
             
             #Add all numbers in the row into "new_entries", accounting for the previous row(s)
             for i in range(9): 
@@ -43,7 +43,7 @@ class Solver():
         loop = 0
         while (loop < 9):
             new_entries = []
-            col_name = "C{}:".format(loop)
+            col_name = "C{}".format(loop)
 
             #Add all numbers in column to "new_entries", accounting for previous column(s)
             for i in range(9):
@@ -58,6 +58,47 @@ class Solver():
             #tag column entry with column name, and advance to next column
             self.columns[col_name] = new_entries[0]
             loop += 1
+        
+        #Grid Detection
+        loop = 0
+        location = 0
+        while (loop < 9):
+            new_entries = []
+            grid_name = "G{}".format(loop)
 
+            #Add all number in grid to "new_entries", accounting for previous grid(s)
+            for i in range(9):
+                i += location #read row
+                row_to_view = "R{}".format(i)
+                
+                if loop == 0 or loop == 3 or loop == 6:
+                    new_entries.append(self.rows[row_to_view][:3])
+                    i += 1
+                    new_entries.append(self.rows[row_to_view][:3])
+                    i += 1
+                    new_entries.append(self.rows[row_to_view][:3])
+                
+                elif loop == 1 or loop == 4 or loop == 7:
+                    new_entries.append(self.rows[row_to_view][3:6])
+                    i += 1
+                    new_entries.append(self.rows[row_to_view][3:6])
+                    i += 1
+                    new_entries.append(self.rows[row_to_view][3:6])
+
+                elif loop == 2 or loop == 5 or loop == 8:
+                    new_entries.append(self.rows[row_to_view][6:])
+                    i += 1
+                    new_entries.append(self.rows[row_to_view][6:])
+                    i += 1
+                    new_entries.append(self.rows[row_to_view][6:])
+                
+                #combine all individual entries into single str, don't count the first, otherwise add entry
+                for e in range(1, 9):
+                    new_entries[0] = new_entries[0] + new_entries[e]
+                
+                #tag column entry with column name, and advance to next column
+                self.grids[grid_name] = new_entries[0]
+                loop += 1
 init = Solver(test_puzzle)
-print (init.columns)
+print (init.rows)
+print (init.grids)
