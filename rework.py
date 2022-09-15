@@ -18,25 +18,30 @@ class Solver():
         self.columns = []
         self.grids = []
 
+        #Row Detection
         loop = 0
         location = 0 #within the puzzle
         while True:
             new_entries = []
             row_name = "R{}:".format(loop)
-
+            
+            #end loop once whole puzzle is read, add all numbers in the row into "new_entries", and account for the previous row(s)
             if loop >= 9:
                 break
-            for i in range(9):
+            for i in range(9): 
                 i += location
                 new_entries.append(puzzle_to_solve[i])
             
+            #combine all individual entries into single str, don't count the first, otherwise add entry
             for e in range(1, 9):
                 if e == 0:
                     break
                 else:
                     new_entries[0] = new_entries[0] + new_entries[e]
+            
+            #tag row entry with row name, and move up next 9 numbers
             self.rows.append(row_name + new_entries[0])
-            location += 9 #move up the next 9 numbers
+            location += 9
             loop += 1
         
 
