@@ -14,36 +14,50 @@ test_puzzle_2 = 'n59n6n48nn829n475nnnnnnnnnnn465n739nnnnnnnnnnn713n924nnnnnnnnnn
 
 class Solver():
     def __init__(self, puzzle_to_solve):
-        self.rows = []
-        self.columns = []
-        self.grids = []
+        self.rows = {}
+        self.columns = {}
+        self.grids = {}
 
         #Row Detection
         loop = 0
         location = 0 #within the puzzle
-        while True:
+        while (loop < 9):
             new_entries = []
             row_name = "R{}:".format(loop)
             
-            #end loop once whole puzzle is read, add all numbers in the row into "new_entries", and account for the previous row(s)
-            if loop >= 9:
-                break
+            #Add all numbers in the row into "new_entries", accounting for the previous row(s)
             for i in range(9): 
                 i += location
                 new_entries.append(puzzle_to_solve[i])
             
             #combine all individual entries into single str, don't count the first, otherwise add entry
             for e in range(1, 9):
-                if e == 0:
-                    break
-                else:
-                    new_entries[0] = new_entries[0] + new_entries[e]
+                new_entries[0] = new_entries[0] + new_entries[e]
             
             #tag row entry with row name, and move up next 9 numbers
-            self.rows.append(row_name + new_entries[0])
+            self.rows[row_name] = new_entries[0]
             location += 9
             loop += 1
         
+        #Column Detection
+        loop = 0
+        while (loop < 9):
+            new_entries = []
+            col_name = "C{}:".format(loop)
+
+            #Add all numbers in column to "new_entries", accounting for previous column(s)
+            for i in range(9):
+                i *= 9
+                i += loop
+                new_entries.append(puzzle_to_solve[i])
+            
+            #combine all individual entries into single str, don't count the first, otherwise add entry
+            for e in range(1, 9):
+                new_entries[0] = new_entries[0] + new_entries[e]
+            
+            #tag column entry with column name, and advance to next column
+            self.columns[col_name] = new_entries[0]
+            loop += 1
 
 init = Solver(test_puzzle)
-print (init.rows)
+print (init.columns)
