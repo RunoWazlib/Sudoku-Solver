@@ -34,7 +34,12 @@ class Solver():
             
             #combine all individual entries into single str, don't count the first, otherwise add entry
             for e in range(1, 9):
-                new_entries[0] = new_entries[0] + new_entries[e]
+                if isinstance(new_entries[0], list) == True:
+                    break
+                elif isinstance(new_entries[e],list) == True:
+                    break
+                else:
+                    new_entries[0] = new_entries[0] + new_entries[e]
             
             #tag row entry with row name, and move up next 9 numbers
             self.rows[row_name] = new_entries[0]
@@ -55,7 +60,12 @@ class Solver():
             
             #combine all individual entries into single str, don't count the first, otherwise add entry
             for e in range(1, 9):
-                new_entries[0] = new_entries[0] + new_entries[e]
+                if isinstance(new_entries[0], list) == True:
+                    break
+                elif isinstance(new_entries[e],list) == True:
+                    break
+                else:
+                    new_entries[0] = new_entries[0] + new_entries[e]
             
             #tag column entry with column name, and advance to next column
             self.columns[col_name] = new_entries[0]
@@ -84,7 +94,12 @@ class Solver():
                 
                 #combine all individual entries into single str, don't count the first, otherwise add entry
             for e in range(1,3):
-                new_entries[0] = new_entries[0] + new_entries[e]
+                if isinstance(new_entries[0], list) == True:
+                    break
+                elif isinstance(new_entries[e],list) == True:
+                    break
+                else:
+                    new_entries[0] = new_entries[0] + new_entries[e]
                 
             #tag grid entry with grid name, and advance to next grid
             self.grids[grid_name] = new_entries[0]
@@ -131,8 +146,6 @@ class Solver():
                     #fill in if known
                     solved_puzzle.append(self.rows[row_name][e])
         #Once determined guesses or identities of each value, determine which guess for each value is correct
-        #Get solved_puzzle sorted so it can be dealt with
-        self.__init__(solved_puzzle)
         #If there's only one guess, replace with that value
         for i in range(len(unknown_map)): #read every unknown
             row = unknown_map[i][0]
@@ -143,7 +156,7 @@ class Solver():
             pass
         return solved_puzzle
 
+#Maybe to fix list access issue, make everything a list in a list (DO THIS FOR SURE!!!)
 
 init = Solver(test_puzzle)
 print (init.solver())
-Solver(init.solver())
