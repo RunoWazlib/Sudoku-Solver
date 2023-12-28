@@ -34,7 +34,8 @@ class Puzzle():
         for grid_row in range(3):
             for grid_column in range(3):
                 grid_assembly2 = grid_assembly[grid_column+(9*grid_row)]+grid_assembly[grid_column+3+(9*grid_row)]+grid_assembly[grid_column+6+(9*grid_row)]
-                self.grids[len(self.grids)+1] = grid_assembly2
+                grid_assembly3 = grid_assembly2[0]+grid_assembly2[1]+grid_assembly2[2]
+                self.grids[len(self.grids)+1] = [grid_assembly3]
 
         #get columns
         for column in range(9):
@@ -51,7 +52,7 @@ class Puzzle():
         guesses = {}
         possible_values = [1,2,3,4,5,6,7,8,9]
         while self.number_unknown_values > 0:
-            for i in range(1,9):
+            for i in range(1,10):
                 if self.grids[i][0].find('n') != -1:
                     position = (self.grids[i][0].find('n'))+i*9
                     guess = []
@@ -66,14 +67,15 @@ class Puzzle():
 #test            
 test = "123456789"*6+"nnnnnnnnn"*3
 #grid test
-test = "111222333111222333111222333444555666444555666444555666777888999777888999777888999"
+# test = "111222333111222333111222333444555666444555666444555666777888999777888999777888999"
+print("[*] Init")
 test = Puzzle(test)
-print("[*] Grids:")
+print("\n[*] Grids:")
 print(test.grids)
-print("[*] Rows:")
+print("\n[*] Rows:")
 print(test.rows)
-print("[*] Columns:")
+print("\n[*] Columns:")
 print(test.columns)
-print("[*] Number of 'n's:")
+print("\n[*] Number of 'n's:")
 print(test.number_unknown_values)
 test.Guesser()
